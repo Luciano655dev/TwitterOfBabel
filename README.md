@@ -9,7 +9,6 @@
 </br>
 </br>
 </br>
-</br>
 
 # Instalação
 #### Pre-requisitos: <a href="https://nodejs.org/en/">NodeJS</a>, <a href="https://git-scm.com">Git</a> e <a href="https://code.visualstudio.com">Visual Studio Code</a> (Opicional)
