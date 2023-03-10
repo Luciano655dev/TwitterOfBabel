@@ -62,7 +62,7 @@ npm install nodemon
 ### e só usar o comando `npm start` para rodar com nodemon
 
 # Contribua com o projeto!
-### Como cintrubuir:
+### Como contribuir:
 1. Bifurque este repositório.
 2. Crie um branch: `git checkout -b <nome_branch>`.
 3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
