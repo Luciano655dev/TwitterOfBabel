@@ -2,9 +2,9 @@ require("dotenv").config({ path: __dirname + "/.env" })
 const { twitterClient } = require("./twitterClient.js")
 const fs = require('fs')
 
-let tweetsObj = []
+let tweetsObj = [] // 1 Tweet a cada 30 minutos (1800000ms = 30m)
 
-setInterval(async()=>{
+module.exports = async function tweet(){
   try {
     let alfabeto = 'abcdefghijklmnopqrstuvwxyz'.split('')
     let str = []
@@ -14,12 +14,11 @@ setInterval(async()=>{
     }
 
 
-    const { data: createdTweet } = await twitterClient.v2.tweet(str.join(''));
+    const { data: createdTweet } = await twitterClient.v2.tweet(str.join('')); // posta o tweet e armaneza seu ID
 
     tweetsObj.push({ text: str.join(''), src: `https://twitter.com/luciano655dev/status/${createdTweet.id}` })
-    fs.writeFile('src/tweets.json', JSON.stringify(tweetsObj, null, 2), (err)=>console.log(err))
-
+    fs.writeFile('src/tweets.json', JSON.stringify(tweetsObj, null, 2), (err)=>{ if(err)throw err })
   } catch (e) {
     console.log(e)
   }
-}, 1000); // 1 Tweet a cada 30 minutos (1800000ms = 30m)
+}
