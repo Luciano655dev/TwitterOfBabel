@@ -18,7 +18,7 @@
     </div>
     
     <% tweetsJson.map(res=>{ %>
-        <div class="tweet-wrap" onclick="alert(`<%= res.src %>`)">
+        <div class="tweet-wrap" onclick="window.open(`<%= res.src %>`)">
             <div class="tweet-header">
                 <img src="https://pbs.twimg.com/profile_images/1632524718732443648/pMiGsE5f_400x400.jpg" alt="" class="avator">
                 <div class="tweet-header-info">

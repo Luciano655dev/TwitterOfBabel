@@ -16,7 +16,7 @@ module.exports = async function tweet(){
 
     const { data: createdTweet } = await twitterClient.v2.tweet(str.join('')); // posta o tweet e armaneza seu ID
 
-    tweetsObj.push({ text: str.join(''), src: `https://twitter.com/luciano655dev/status/${createdTweet.id}` })
+    tweetsObj.push({ text: str.join(''), src: `https://twitter.com/luciano655dev/status/${createdTweet.id}` }) // Lembrar de trocar o nome
     fs.writeFile('src/tweets.json', JSON.stringify(tweetsObj, null, 2), (err)=>{ if(err)throw err })
   } catch (e) {
     console.log(e)
