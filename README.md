@@ -39,6 +39,8 @@ BEARER_TOKEN="..."
 
 APP_ID="..."
 ```
+## IMPORTANTE
+### Antes de iniciar o servidor, execute o comando `npm run tweet`, isso irá postar um tweet e criar o arquivo .json, essencial para o servidor funcionar
 
 ### Logo depois, é só usar esse comando para iniciar o servidor:
 ```
