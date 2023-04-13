@@ -1,24 +1,14 @@
-const {Tweet} = require('./src/tweet.js')
-const {Status} = require('./src/status.js')
-const tweetsJson = require('./src/tweets.json')
+const tweetsJson = require('./views/tweets.json')
 
 const express = require('express')
 const app = express()
-/*
-async function Start(){
-    await Tweet()
-    setInterval(async()=>await Tweet(), 1000)
-}
-Start()
-*/
 
 // API MIDDELWARES
-app.set('view engine', 'ejs')
+app.set('view engine', 'html')
 app.use(express.static('views'))
 
 app.get('/', async(req, res)=>{
-    const status = await Status()
-    res.render('../views/index.ejs', {tweetsJson, status})
+    res.render('../views/index.ejs')
 })
 
 app.get('/api', async(req, res)=>{
