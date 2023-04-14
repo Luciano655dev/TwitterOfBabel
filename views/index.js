@@ -7,16 +7,10 @@ window.addEventListener('scroll', () => {
 	const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 	
 	if(clientHeight + scrollTop >= scrollHeight - 5 && posts.length != 0) {
-		// show the loading animation
-		showLoading();
+		loading.classList.add('show');
+        postTweet(false)
 	}
 })
-function showLoading() {
-	loading.classList.add('show');
-	
-	// load more data
-	setTimeout(postTweet(), 10000)
-}
 
 
 function createTweet(tweetsJson){
@@ -70,10 +64,18 @@ function createTweet(tweetsJson){
 
     return tweetWrap
 }
-function postTweet(){
-    const tweet = posts.shift()
-    container.appendChild(tweet)
-    loading.classList.remove('show');
+function postTweet(immediatly){
+    function post(){
+        if(posts.length == 0) return
+        const tweet = posts.shift()
+        container.appendChild(tweet)
+        loading.classList.remove('show')
+    }
+    if(immediatly){
+        post()
+    }else{
+        setTimeout(post, 500)
+    }
 }
 
 function search(){
@@ -89,8 +91,8 @@ function search(){
                 posts.push(createTweet(tweetsJsonFilter[i]))
             }
             console.log(posts)
-            for(let i=0; i<=4; i++){
-                postTweet()
+            for(let i=0; i<5; i++){
+                postTweet(true)
             }
         }
     })

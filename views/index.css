@@ -28,6 +28,13 @@
     margin-left: 0;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    transition: 0.3s;
+}
+.searchDiv button:hover{
+  filter: brightness(1.50);
+}
+.searchDiv button:active{
+  filter: brightness(2);
 }
 
 /* Tweet CSS */
@@ -57,10 +64,19 @@ body {
     border: 3px solid #e6ecf0;
     padding: 30px;
     transition: 0.2s;
+    animation: show 1.5s;
   }
   .tweet-wrap:hover {
     border: 3px solid gray;
     cursor: pointer;
+  }
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
   
   .tweet-header {
