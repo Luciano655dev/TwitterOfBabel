@@ -1,6 +1,25 @@
 const tweetsJsonSrc = '../src/tweets.json'
+const container = document.querySelector('.container')
+const loading = document.querySelector('.loading');
+let posts = []
+
+window.addEventListener('scroll', () => {
+	const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+	
+	if(clientHeight + scrollTop >= scrollHeight - 5 && posts.length != 0) {
+		// show the loading animation
+		showLoading();
+	}
+})
+function showLoading() {
+	loading.classList.add('show');
+	
+	// load more data
+	setTimeout(postTweet(), 10000)
+}
+
+
 function createTweet(tweetsJson){
-    const container = document.querySelector('.container')
 
     // Primeira div
     const tweetWrap = document.createElement('div')
@@ -31,6 +50,7 @@ function createTweet(tweetsJson){
                 <div class="comment-count">${tweetsJson.comments}</div>
             </div>
         `
+
         // Retweets
         tweetInfoCounts.innerHTML += `
             <div class="retweets">
@@ -38,6 +58,7 @@ function createTweet(tweetsJson){
                 <div class="retweet-count">${tweetsJson.retweets}</div>
             </div>
         `
+
         // Likes
         tweetInfoCounts.innerHTML += `
             <div class="likes">
@@ -47,28 +68,31 @@ function createTweet(tweetsJson){
         `
     tweetWrap.appendChild(tweetInfoCounts)
 
-    container.appendChild(tweetWrap)
+    return tweetWrap
 }
-
-function homeScreen(){
-    fetch('./tweets.json').then(res => res.json()).then(tweetsJson => {
-        for(let i in tweetsJson){
-            createTweet(tweetsJson[i])
-        }
-    })
+function postTweet(){
+    const tweet = posts.shift()
+    container.appendChild(tweet)
+    loading.classList.remove('show');
 }
-homeScreen()
 
 function search(){
+    posts = []
     const textSearched = document.querySelector('.textBox').value
 
     fetch('./tweets.json').then(res => res.json()).then(tweetsJson => {
         const tweetsJsonFilter = tweetsJson.filter(val => val.text.toLowerCase().includes(textSearched))
-        if(tweetsJsonFilter == []){ document.querySelector('.container').innerHTML = '<h1>Nada encontrado</h1>' }else{
-            document.querySelector('.container').innerHTML = ''
+
+        if(tweetsJsonFilter.length == 0){ container.innerHTML = '' }else{
+            container.innerHTML = ''
             for(let i in tweetsJsonFilter){
-                createTweet(tweetsJsonFilter[i])
+                posts.push(createTweet(tweetsJsonFilter[i]))
+            }
+            console.log(posts)
+            for(let i=0; i<=4; i++){
+                postTweet()
             }
         }
     })
 }
+search()
